@@ -41,6 +41,6 @@ def menu():
                     
                 case "3":
                     fight(character, character_view[4])
-                    break
+                    pass
                 case "4":
                     break

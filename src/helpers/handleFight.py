@@ -31,16 +31,40 @@ def fight(character, atks):
 
     match(action):
         case "1":
-            atk_list = format_attack_dict(atks)
-            print("\n\n")
-            print_attacks(atk_list)
-            print("\nPrecione qualquer tecla para voltar")
-            chosen_attack_num = input("Selecione um ataque\n")
 
-            if (chosen_attack_num in atk_list):
-                chosen_attack = atk_list[chosen_attack_num]
-                print(f"Você escolheu o ataque: {chosen_attack['atkname']} - {chosen_attack['damage']}dmg - {chosen_attack['type']}")
-                calculate_damage(chosen_attack, character)  
+            while(True):
+                
+                character_life = character[1]
+                enemy_life = enemy_dict['hp']
+                atk_list = format_attack_dict(atks)
+                print("\n\n")
+                print_attacks(atk_list)
+                print("\nPrecione qualquer tecla para voltar")
+                chosen_attack_num = input("Selecione um ataque\n")
+
+                if (chosen_attack_num in atk_list):
+                    chosen_attack = atk_list[chosen_attack_num]
+                    print(f"Você escolheu o ataque: {chosen_attack['atkname']} - {chosen_attack['damage']}dmg - {chosen_attack['type']}")
+                    total_damege = calculate_damage(chosen_attack, character)  
+
+                    enemy_life -= total_damege
+
+                if enemy_life <= 0:
+                    print(f"\nVocê derrotou {enemy_dict['name']}!\n")
+                    break
+
+                print(f"\nAgora é a vez de {enemy_dict['name']}!\n")
+                print("-" *60)
+                print(f"seu HP {character_life}/{character[1]}")
+                print(f"HP inimigo {enemy_life}/{enemy_dict['hp']}")
+                print("\n\n")
+                enemy_damage = random.choice(enemy_dict['attacks'])['damage']
+                character_life -= enemy_damage
+                print(f"{enemy_dict['name']} usou {enemy_dict['attacks'][0]['name']} e causou {enemy_damage} de dano!")
+
+                if character_life <= 0:
+                    print("\nVocê morreu!\n")
+                    break
 
         case "2":
             pass

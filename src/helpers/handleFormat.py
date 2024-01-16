@@ -30,3 +30,5 @@ def calculate_damage(chosen_attack, character):
     else:
         print("Tipo de ataque desconhecido.")
 
+    return damage
+
